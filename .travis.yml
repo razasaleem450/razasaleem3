@@ -13,10 +13,11 @@ sudo: true
 
 ignore:
   - "vendor"
-  
+
 before_script:
   - cp .env.travis .env
   - mysql -e 'create database homestead;'
+  - composer global require "phpmd/phpmd=@stable"
   - composer install --dev --prefer-source --no-interaction
   - php artisan key:generate
   - php artisan migrate --seed
