@@ -1,14 +1,19 @@
 language: php
 
+# Start mysql service
+services:
+  - mysql
+
 php:
   # - '5.6'
   - '7.0'
   # - '7.1'
 
-sudo: false
+sudo: true
 
 before_script:
-  - cp .env.ci .env
+  - cp .env.travis .env
+  - mysql -e 'create database homestead_test;'
   - composer install --dev --prefer-source --no-interaction
   - php artisan key:generate
   - php artisan migrate --seed
