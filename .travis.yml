@@ -11,6 +11,9 @@ php:
 
 sudo: true
 
+ignore:
+  - "vendor"
+  
 before_script:
   - cp .env.travis .env
   - mysql -e 'create database homestead;'
