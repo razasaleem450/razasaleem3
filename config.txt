@@ -1,0 +1,38 @@
+java -Dwebdriver.chrome.driver="C:\TestTools\chromedriver" -jar C:\TestTools\selenium-server-standalone-3.11.0.jar
+
+
+
+
+composer require codeception/codeception --dev
+composer exec codecept bootstrap
+cp .env .env.testing
+Download codecept.phar for php version
+php codecept.phar
+
+acceptance.suite.yml
+modules:
+    enabled:
+        - WebDriver:
+            url: http://razasaleem3.localhost/
+            window_size: false # disabled in ChromeDriver
+            port: 9515
+            browser: chrome
+        - Laravel5:
+            part: ORM
+            environment_file: .env.testing
+
+functional.suite.yml
+class_name: FunctionalTester
+modules:
+    enabled:
+        - Helper\Functional
+        - Asserts
+        - REST:
+            depends: Laravel5
+        - Laravel5:
+            environment_file: .env.testing
+
+composer exec codecept g:cest functional Home
+
+composer -v exe D:/wamp/wamp64/www/razasaleem3/vendor/bin/codecept build
+composer -v exe D:/wamp/wamp64/www/razasaleem3/vendor/bin/codecept run
