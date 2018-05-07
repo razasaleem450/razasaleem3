@@ -25,9 +25,6 @@ before_script:
 
 
 script:
-  - wget https://codeception.com/codecept.phar
-  - php codecept.phar
-  - $TRAVIS_BUILD_DIR/vendor/bin/codecept bootstrap
   - $TRAVIS_BUILD_DIR/vendor/bin/codecept run
 
 notifications:
