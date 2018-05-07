@@ -1,7 +1,7 @@
 <?php
-use \Facebook\WebDriver\Remote\RemoteWebDriver;
 
-class LoginCest
+
+class RegisterCest
 {
     public function _before(FunctionalTester $I)
     {
@@ -12,14 +12,15 @@ class LoginCest
     }
 
     // tests
-    public function tryToLogin(FunctionalTester $I)
+    public function tryToTest(FunctionalTester $I)
     {
         $I->amOnPage('/');
-        $I->click(['link' => 'Login']);
+        $I->click(['link' => 'Register']);
+        $I->fillField('name', 'Raza Saleem');
         $I->fillField('email', 'raza@xoho.tech');
         $I->fillField('password', 'raza1234');
-        $I->click(['id' => 'login-submit']);
+        $I->fillField('password_confirmation', 'raza1234');
+        $I->click(['id' => 'register-submit']);
         $I->see('Hello , Raza Saleem', 'h1');
-        
     }
 }
