@@ -36,3 +36,4 @@ composer exec codecept g:cest functional Home
 
 composer -v exe D:/wamp/wamp64/www/razasaleem3/vendor/bin/codecept build
 composer -v exe D:/wamp/wamp64/www/razasaleem3/vendor/bin/codecept run
+composer -v exe D:/wamp/wamp64/www/razasaleem3/vendor/bin/codecept run functional LoginCest.php:LoginCest

@@ -1,5 +1,5 @@
 <?php
-
+use \Facebook\WebDriver\Remote\RemoteWebDriver;
 
 class LoginCest
 {
