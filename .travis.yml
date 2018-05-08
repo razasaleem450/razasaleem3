@@ -28,7 +28,7 @@ notifications:
     on_success: always
     on_failure: always
 before_install:
-  - "openssl aes-256-cbc -k '$DEPLOY_KEY' -in $TRAVIS_BUILD_DIR/laravel_id_rsa_enc_travis -d -a -out $TRAVIS_BUILD_DIR/laravel_id_rsa"
+  - "openssl aes-256-cbc -k $DEPLOY_KEY -in $TRAVIS_BUILD_DIR/laravel_id_rsa_enc_travis -d -a -out $TRAVIS_BUILD_DIR/laravel_id_rsa"
 before_deploy:
   - eval "$(ssh-agent -s)"
   - chmod 600 /tmp/laravel_id_rsa
