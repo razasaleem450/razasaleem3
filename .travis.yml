@@ -40,8 +40,7 @@ notifications:
     on_failure: always
 
 before_install:
-- openssl aes-256-cbc -k $DEPLOY_KEY -in $TRAVIS_BUILD_DIR/deploy_id_rsa_enc_travis
-  -d -a -out /tmp/deploy_id_rsa
+- openssl aes-256-cbc -k $DEPLOY_KEY -in $TRAVIS_BUILD_DIR/deploy_id_rsa_enc_travis -d -a -out /tmp/deploy_id_rsa
 
 before_deploy:
 - eval "$(ssh-agent -s)"
@@ -51,7 +50,7 @@ before_deploy:
 deploy:
 - provider: script
   skip_cleanup: true
-  script: ssh -p22 witchschool@viva.isrv.tech "mkdir -p travis_was_here"
+  script: ssh -i /tmp/deploy_id_rsa -p22 witchschool@viva.isrv.tech "mkdir -p travis_was_here"
 
 env:
   global:
