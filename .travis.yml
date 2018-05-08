@@ -1,12 +1,20 @@
 language: php
 services:
-- mysql
+  - mysql
 php:
-- '7.0'
+  - '7.0'
+
 sudo: true
+
+addons:
+  ssh_known_hosts:
+  - viva.isrv.tech
+
 ignore:
 - vendor
+
 before_script:
+- echo -e "Host viva.isrv.techntStrictHostKeyChecking non" >> ~/.ssh/config
 - cp .env.travis .env
 - mysql -e 'create database homestead;'
 - composer install --dev --prefer-source --no-interaction
@@ -14,25 +22,36 @@ before_script:
 - php artisan migrate --seed
 - pear install pear/PHP_CodeSniffer
 - phpenv rehash
+
 cache:
   directories:
   - "$HOME/.composer/cache/files"
+
 script:
 - "$TRAVIS_BUILD_DIR/vendor/bin/codecept run"
 - phpcs -i
 - phpcs --standard=PSR2 app/Http/Controllers --colors
+
 notifications:
   email:
     recipients:
     - raza@xoho.tech
     on_success: always
     on_failure: always
+
 before_install:
 - openssl aes-256-cbc -k $DEPLOY_KEY -in $TRAVIS_BUILD_DIR/deploy_id_rsa_enc_travis
   -d -a -out /tmp/deploy_id_rsa
+
 before_deploy:
 - eval "$(ssh-agent -s)"
 - chmod 600 /tmp/deploy_id_rsa
 - ssh-add /tmp/deploy_id_rsa
+
+deploy:
+- provider: script
+  skip_cleanup: true
+  script: bash $TRAVIS_BUILD_DIR/travis-deploy.sh
+
 env:
   global:
