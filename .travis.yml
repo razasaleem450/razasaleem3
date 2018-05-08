@@ -27,6 +27,7 @@ before_script:
 #   directories:
 #   - "$HOME/.composer/cache/files"
 
+
 script:
 - "$TRAVIS_BUILD_DIR/vendor/bin/codecept run"
 - phpcs -i
