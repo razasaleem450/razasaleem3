@@ -1,40 +1,39 @@
 language: php
-
-# Start mysql service
 services:
-  - mysql
-
+- mysql
 php:
-  # - '5.6'
-  - '7.0'
-  # - '7.1'
-
+- '7.0'
 sudo: true
-
 ignore:
-  - "vendor"
-
+- vendor
 before_script:
-  - cp .env.travis .env
-  - mysql -e 'create database homestead;'
-  - composer install --dev --prefer-source --no-interaction
-  - php artisan key:generate
-  - php artisan migrate --seed
-  - pear install pear/PHP_CodeSniffer
-  - phpenv rehash
-
+- cp .env.travis .env
+- mysql -e 'create database homestead;'
+- composer install --dev --prefer-source --no-interaction
+- php artisan key:generate
+- php artisan migrate --seed
+- pear install pear/PHP_CodeSniffer
+- phpenv rehash
 cache:
   directories:
   - "$HOME/.composer/cache/files"
-
 script:
-  - $TRAVIS_BUILD_DIR/vendor/bin/codecept run
-  - phpcs -i
-  - phpcs --standard=PSR2 app/Http/Controllers --colors
-
+- "$TRAVIS_BUILD_DIR/vendor/bin/codecept run"
+- phpcs -i
+- phpcs --standard=PSR2 app/Http/Controllers --colors
 notifications:
   email:
     recipients:
-      - raza@xoho.tech
+    - raza@xoho.tech
     on_success: always
     on_failure: always
+env:
+  global:
+    secure: iOB9c2sqt9cQMTQCRJ5SWnbsWAvLDzAd/f/VMEGREZS7choX8XiidMNS5MIJDFjOSqmJOEBpFKBCdsUuLuE0b3l7EE8FU0+VNRY2FQU0GsOKFd3zP+TXRIgoUZDWjdn9fOAvaARlSQjjDfkSkzlQ8y2IspqsexjrPUC26pUd5QvBTk8bVxLSL9H3p8XwO7Kmlt8qFLsugFt+9wYzC508NcXmOyWX7x6iUC+lr4lkaU83HfvSy54kCnGplHL9vtAzQxRXlVZMJgL2kBkI2mMQG8lXLEcvG2n51bX2j0vO/pcMehfpLf+2WjfJpShRKu3GwanT7Li5BRD3LPQX1pt0FIJcNOuo4Rg7lqlaRrbewGL9dvftUP6Qf8qQ19JCCjThwf6TrYCEeoXBF1jjKMhltQb3eU2BWl0WkyAhEC2IZEjO1+cbK3XwMIAhUrPGEmegvzNF2OwsmCl1Z4WDDnrwU8qV2iNWFgzeBHBDXZzIhWCEZLqa/MucjUk231moNUIo8uAexJDwkozuT7BuA4YFJRWSoliu8q1TQFlUE2jtBRssYolscUOfzl+6d2H0zx0RHP+EVvZm7Gk5Oh5YeTODTcvDds48AgzPQabMsfRIeP56CLwFsbgNn1QkFw2/FsCIUjPyJW5jnhk3MTzgZdAcKWyokwK733mBBYCkAge9+7c=
+
+after_success:
+  - "openssl aes-256-cbc -k $DEPLOY_KEY -in laravel_id_rsa_enc_travis -d -a -out /tmp/laravel_id_rsa"
+before_deploy:
+  - eval "$(ssh-agent -s)"
+  - chmod 600 /tmp/laravel_id_rsa
+  - ssh-add /tmp/laravel_id_rsa
