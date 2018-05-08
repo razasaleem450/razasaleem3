@@ -31,7 +31,7 @@ env:
   global:
     secure: r5Xgo4GfCnMYRxAJEEoqBvnaZYCxSrBnbGozUl5hxDUzskzEluCBXHMN8ev8NKTmh6J/Y6qeXeUPfXI+oyvatVSq9FN9iqWlvLlRue9ggmz8RiQn+7/ZvirpSri7H8/mc2+bSrSaoVLjuHbwK7aqUqd+RDNJdze3yC7N4Y2/bPXqaYkAUbxZQ1ukjeK+pSgypGM04SqUIwhJd9DaoLjuJA1NM+3Qb1He4mNZtAwAeUCHWwiI1G6ERkUigyPLr7vjSgK0r9k/2VllxE8Usj1hkN+bj2wMb0j68scikz+OdAnLJI07mCdU2Irt8Qqv9ipIU6OXJ9vgmbr9lRfK3HFg43PzWdkJga49lDeiaEAu0ZcKHmeqr+3lyHp1TRYN+jVJ/qQYOultIIdZUQyuuIriYAkj2FwaxkTa6FBA+4LJ8JKo5LAH3n8PbfExjrwQoAHaoBjg2kndUIFVbGvdx0XUl8WI0vMCx42K+2exXwsBzOgeH+PVik0q03klelaNY4h+Xhv4FmyC0vPhM9jExVjaOollg7g+SiSX2KfJx2VTpGX2446joM2ijYLlQaCmW2pZ08nb7V3rit2tGVn7G5DMyypKNcQekGkHRx6oXEeia2miJhLvV0iTO5Q3t6cpqJCax2ubMV7TsaisshDIJfgRJrfWD6MuOCJCeGUZJv0zk7w=
 before_install:
-  - "openssl aes-256-cbc -k $DEPLOY_KEY -in laravel_id_rsa_enc_travis -d -a -out /tmp/laravel_id_rsa"
+  - "openssl aes-256-cbc -k $DEPLOY_KEY -in $TRAVIS_BUILD_DIR/laravel_id_rsa_enc_travis -d -a -out /tmp/laravel_id_rsa"
 before_deploy:
   - eval "$(ssh-agent -s)"
   - chmod 600 /tmp/laravel_id_rsa
