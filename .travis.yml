@@ -33,11 +33,9 @@ script:
 - phpcs --standard=PSR2 app/Http/Controllers --colors
 
 notifications:
-  email:
-    recipients:
-    - raza@xoho.tech
-    on_success: always
-    on_failure: always
+  on_success: always
+  on_failure: always
+  email: raza@xoho.tech
 
 before_install:
 - openssl aes-256-cbc -k $DEPLOY_KEY -in $TRAVIS_BUILD_DIR/deploy_id_rsa_enc_travis -d -a -out /tmp/deploy_id_rsa
