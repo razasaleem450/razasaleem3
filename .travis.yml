@@ -15,7 +15,7 @@ ignore:
 
 before_script:
 - echo -e "Host viva.isrv.techntStrictHostKeyChecking non" >> ~/.ssh/config
-- cp .env.travis .env
+# - cp .env.travis .env
 - mysql -e 'create database homestead;'
 - composer install --dev --prefer-source --no-interaction
 - php artisan key:generate
