@@ -50,7 +50,7 @@ before_deploy:
 deploy:
 - provider: script
   skip_cleanup: true
-  script: ssh -i /tmp/deploy_id_rsa -p22 witchschool@viva.isrv.tech "mkdir -p travis_was_here"
+  script: bash $TRAVIS_BUILD_DIR/travis-deploy.sh
 
 env:
   global:
