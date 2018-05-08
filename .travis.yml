@@ -23,9 +23,9 @@ before_script:
 - pear install pear/PHP_CodeSniffer
 - phpenv rehash
 
-cache:
-  directories:
-  - "$HOME/.composer/cache/files"
+# cache:
+#   directories:
+#   - "$HOME/.composer/cache/files"
 
 script:
 - "$TRAVIS_BUILD_DIR/vendor/bin/codecept run"
